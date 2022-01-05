@@ -1,25 +1,25 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { Suspense, lazy } from 'react';
+import { BrowserRouter, Routes, Route } from 'react-router-dom'; //버전 6로 업그레이드 후, Switch->routes,component->element
+import { loading } from 'assets/index';
+import NotFound from 'pages/NotFound';
+
+const Login = lazy(() => import('pages/Login'));
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <BrowserRouter>
+      <Suspense
+        fallback={
+          <div style={{ textAlign: 'center', marginTop: '30px' }}>
+            <img width={130} src={loading} alt="loading" />
+          </div>
+        }
+      />
+      <Routes>
+        <Route path="/" element={<Login />} />
+        <Route path="*" element={<NotFound />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 

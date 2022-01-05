@@ -1,0 +1,13 @@
+export { default as calendar } from './calendar.png';
+export { default as close } from './close.png';
+export { default as etc } from './etc.png';
+export { default as google_logo } from './google_logo.png';
+export { default as menu } from './menu-white.png';
+export { default as pause } from './pause.png';
+export { default as sleepy } from './sleepy.png';
+export { default as study } from './study.png';
+export { default as work } from './work.png';
+export { default as workout } from './workout.png';
+export { default as error } from './404error.gif';
+export { default as clockMovie } from './clock.mp4';
+export { default as loading } from './loading.gif';
