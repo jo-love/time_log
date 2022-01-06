@@ -2,6 +2,9 @@ import { Suspense, lazy } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom'; //버전 6로 업그레이드 후, Switch->routes,component->element
 import { loading } from 'assets/index';
 import NotFound from 'pages/NotFound';
+import Record from 'pages/Record';
+import History from 'pages/History';
+import Header from 'components/Header';
 
 const Login = lazy(() => import('pages/Login'));
 
@@ -15,8 +18,11 @@ function App() {
       }
     >
       <BrowserRouter>
+        <Header />
         <Routes>
           <Route path="/" element={<Login />} />
+          <Route path="/record" element={<Record />} />
+          <Route path="history" element={<History />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>

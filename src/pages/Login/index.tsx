@@ -39,13 +39,12 @@ const Button = styled.button`
     transform: translateX(70px);
     letter-spacing: 3px;
     font-weight: 600;
-    /* color: ${(props) => props.theme.colors.white}; */
   }
 `;
 
 const textVar = {
   initial: {
-    fill: 'rgba(250,250,250, 1)',
+    fill: 'rgba(139,0,139, 1)',
   },
   active: {
     fillOpacity: [1, 0, 1],
