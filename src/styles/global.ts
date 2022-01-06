@@ -6,6 +6,13 @@ export const GlobalStyle = createGlobalStyle`
 font-family:'The Nautigal', cursive;
 
 body {
-    color: ${(props) => props.theme.colors.text};
+    color: ${(props) => props.theme.colors.white};
+    button {
+        cursor: pointer;
+        border: none;
+    }
+    text {
+        font-family: 'The Nautigal';
+    }
 }
 `;

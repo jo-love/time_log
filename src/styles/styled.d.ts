@@ -7,7 +7,7 @@ declare module 'styled-components' {
       primary: string;
       secondary: string;
       line: string;
-      text: string;
+      white: string;
     };
     size: {
       mobile: string;

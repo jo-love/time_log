@@ -7,19 +7,20 @@ const Login = lazy(() => import('pages/Login'));
 
 function App() {
   return (
-    <BrowserRouter>
-      <Suspense
-        fallback={
-          <div style={{ textAlign: 'center', marginTop: '30px' }}>
-            <img width={130} src={loading} alt="loading" />
-          </div>
-        }
-      />
-      <Routes>
-        <Route path="/" element={<Login />} />
-        <Route path="*" element={<NotFound />} />
-      </Routes>
-    </BrowserRouter>
+    <Suspense
+      fallback={
+        <div style={{ textAlign: 'center', marginTop: '30px' }}>
+          <img width={130} src={loading} alt="loading" />
+        </div>
+      }
+    >
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Login />} />
+          <Route path="*" element={<NotFound />} />
+        </Routes>
+      </BrowserRouter>
+    </Suspense>
   );
 }
 

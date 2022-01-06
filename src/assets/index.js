@@ -9,5 +9,5 @@ export { default as study } from './study.png';
 export { default as work } from './work.png';
 export { default as workout } from './workout.png';
 export { default as error } from './404error.gif';
-export { default as clockMovie } from './clock.mp4';
+export { default as clockClip } from './clock.mp4';
 export { default as loading } from './loading.gif';
