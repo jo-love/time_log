@@ -1,6 +1,5 @@
 import styled from 'styled-components';
 import { clockClip, google_logo } from 'assets';
-import { motion } from 'framer-motion';
 
 const Container = styled.video`
   object-fit: cover;
@@ -16,6 +15,12 @@ const LoginSection = styled.section`
   width: 35%;
   height: 100%;
   background-color: rgba(225, 152, 185, 0.7);
+  h2 {
+    padding-top: 10px;
+    padding-left: 20px;
+    font-size: 50px;
+    color: darkmagenta;
+  }
 `;
 
 const Title = styled.div`
@@ -39,21 +44,9 @@ const Button = styled.button`
     transform: translateX(70px);
     letter-spacing: 3px;
     font-weight: 600;
+    color: black;
   }
 `;
-
-const textVar = {
-  initial: {
-    fill: 'rgba(139,0,139, 1)',
-  },
-  active: {
-    fillOpacity: [1, 0, 1],
-    transition: {
-      repeat: Infinity,
-    },
-  },
-};
-
 const Login = () => {
   return (
     <>
@@ -61,22 +54,7 @@ const Login = () => {
         <source src={clockClip} />
       </Container>
       <LoginSection>
-        <svg
-          stroke="darkmagenta"
-          xmlns="http://www.w3.org/2000/svg"
-          version="1.1"
-        >
-          <motion.text
-            variants={textVar}
-            initial="initial"
-            whileHover="active"
-            fontSize={50}
-            x="33"
-            y="60"
-          >
-            Time Log
-          </motion.text>
-        </svg>
+        <h2>Time Log</h2>
         <Title>LOGIN</Title>
         <Button>
           <img width={30} src={google_logo} alt="google" />

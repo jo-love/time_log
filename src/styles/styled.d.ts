@@ -6,6 +6,7 @@ declare module 'styled-components' {
       logo: string;
       primary: string;
       secondary: string;
+      pastelBlue: string;
       line: string;
       white: string;
     };
@@ -20,6 +21,7 @@ declare module 'styled-components' {
       flexCenterY: string;
       flexColumnY: string;
       spaceBetween: string;
+      spaceAround: string;
     };
   }
 }

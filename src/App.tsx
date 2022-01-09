@@ -19,6 +19,7 @@ function App() {
     >
       <BrowserRouter>
         <Header />
+        {/* header 불필요한 곳 수정필요 */}
         <Routes>
           <Route path="/" element={<Login />} />
           <Route path="/record" element={<Record />} />

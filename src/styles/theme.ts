@@ -5,6 +5,7 @@ export const theme: DefaultTheme = {
     logo: '#D77FA1',
     primary: '#BAABDA',
     secondary: '#7DD3CE',
+    pastelBlue: '#D6E5FA',
     line: '#49B4AD',
     white: '#FEFBF3',
   },
@@ -20,5 +21,6 @@ export const theme: DefaultTheme = {
     flexCenterY: 'display: flex; align-items: center;',
     flexColumnY: 'display: flex; flex-direction: column; align-items: center;',
     spaceBetween: 'display: flex; justify-content: space-between;',
+    spaceAround: 'display: flex; justify-content: space-around;',
   },
 };

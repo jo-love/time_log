@@ -1,18 +1,19 @@
-import { motion } from 'framer-motion';
-import { Link, useMatch } from 'react-router-dom';
+import { motion, useAnimation, useViewportScroll } from 'framer-motion';
 import styled from 'styled-components';
+import { useEffect } from 'react';
+import { Link, useMatch } from 'react-router-dom';
 
-const Nav = styled.nav`
+const Nav = styled(motion.nav)`
   position: fixed;
   ${(props) => props.theme.positions.flexCenterY};
   justify-content: space-between;
-  height: 60px;
+  height: 55px;
   width: 100%;
-  background-color: ${(props) => props.theme.colors.primary};
+  background: ${(props) => props.theme.colors.primary};
   h2 {
-    font-family: 'The Nautigal';
     color: darkmagenta;
     padding-left: 10px;
+    font-size: 20px;
   }
   ul {
     display: flex;
@@ -42,29 +43,50 @@ const Logout = styled.span`
   padding-right: 10px;
   cursor: pointer;
 `;
+const navVar = {
+  initial: {
+    background: 'rgb(186, 171, 218)',
+  },
+  scroll: {
+    background: 'rgb(161, 140, 209)',
+  },
+};
 const Header = () => {
   const recordMatch = useMatch('/record');
   const historyMatch = useMatch('/history');
-  console.log(recordMatch, 'true');
+  const { scrollY } = useViewportScroll();
+  const navAnimation = useAnimation();
+
+  useEffect(() => {
+    scrollY.onChange(() => {
+      if (scrollY.get() > 80) {
+        navAnimation.start('scroll');
+      } else {
+        navAnimation.start('initial');
+      }
+    });
+  });
   return (
-    <Nav>
-      <h2> Time Log</h2>
-      <ul>
-        <li>
-          <Link to="/record">
-            기록하기
-            {recordMatch && <Mark layoutId="circle" />}
-          </Link>
-        </li>
-        <li>
-          <Link to="/history">
-            히스토리
-            {historyMatch && <Mark layoutId="circle" />}
-          </Link>
-        </li>
-      </ul>
-      <Logout>로그아웃</Logout>
-    </Nav>
+    <>
+      <Nav variants={navVar} initial="initial" animate={navAnimation}>
+        <h2> Time Log</h2>
+        <ul>
+          <li>
+            <Link to="/record">
+              기록하기
+              {recordMatch && <Mark layoutId="circle" />}
+            </Link>
+          </li>
+          <li>
+            <Link to="/history">
+              히스토리
+              {historyMatch && <Mark layoutId="circle" />}
+            </Link>
+          </li>
+        </ul>
+        <Logout>로그아웃</Logout>
+      </Nav>
+    </>
   );
 };
 
