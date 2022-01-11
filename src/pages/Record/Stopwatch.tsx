@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import { useEffect, useState } from 'react';
 
 import Category from 'utils/Category';
+import { formatTime } from 'utils/Timer';
 import { pause, play, stop, close } from 'assets';
 
 const Container = styled(motion.div)`
@@ -53,7 +54,6 @@ const StopWatch = ({
   index,
 }: StopWatchProps) => {
   const [isPaused, setIsPaused] = useState(false);
-  const [isClosed, setIsClosed] = useState(false);
   const [time, setTime] = useState(0);
 
   useEffect(() => {
@@ -85,13 +85,6 @@ const StopWatch = ({
     setTimerArr(newTimerArr);
   };
 
-  const formatTime = () => {
-    const seconds = `0${timerArr[index] % 60}`.slice(-2);
-    const minutes = `0${Math.floor(timerArr[index] / 60) % 60}`.slice(-2);
-    const hours = `0${Math.floor(timerArr[index] / 3600)}`.slice(-2);
-    return `${hours} : ${minutes} : ${seconds}`;
-  };
-
   const handleRecord = () => {
     console.log('make array for record');
   };
@@ -102,7 +95,7 @@ const StopWatch = ({
         <img width={36} src={list.img} alt={list.name} />
         <h3>{list.name}</h3>
       </div>
-      <span>{formatTime()}</span>
+      <span>{formatTime(timerArr[index])}</span>
       <div>
         {isPaused ? (
           <BtnIcon
