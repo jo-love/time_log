@@ -3,10 +3,9 @@ import { motion } from 'framer-motion';
 import { useEffect, useState } from 'react';
 
 import Category from 'utils/Category';
-import Timer from './Timer';
 import { pause, play, stop, close } from 'assets';
 
-const Container = styled.div`
+const Container = styled(motion.div)`
   ${(props) => props.theme.positions.spaceAround};
   align-items: center;
   width: 53%;
@@ -25,7 +24,6 @@ const Container = styled.div`
 `;
 const BtnIcon = styled(motion.img)`
   width: 28px;
-  margin-left: 35px;
   cursor: pointer;
 `;
 const IconVar = {
@@ -39,19 +37,33 @@ const IconVar = {
 };
 interface StopWatchProps {
   clickedItems: Category[];
-  setClickedItems: (arr: Category[]) => void;
+  setClickedItems: Function;
   list: Category;
+  index: number;
+  timerArr: number[];
+  setTimerArr: Function;
 }
 
-const StopWatch = ({ list, clickedItems, setClickedItems }: StopWatchProps) => {
+const StopWatch = ({
+  list,
+  clickedItems,
+  setClickedItems,
+  timerArr,
+  setTimerArr,
+  index,
+}: StopWatchProps) => {
   const [isPaused, setIsPaused] = useState(false);
-  const [timer, setTimer] = useState(0);
-  console.log(clickedItems, 'arr');
+  const [isClosed, setIsClosed] = useState(false);
+  const [time, setTime] = useState(0);
+
   useEffect(() => {
     let increment = 0;
     if (!isPaused) {
       increment = window.setInterval(() => {
-        setTimer((prev) => prev + 1);
+        setTime((prev) => prev + 1);
+        let newTimerArr = timerArr;
+        newTimerArr[index] = timerArr[index] + 1;
+        setTimerArr(newTimerArr);
       }, 1000);
     } else {
       clearInterval(increment);
@@ -59,21 +71,38 @@ const StopWatch = ({ list, clickedItems, setClickedItems }: StopWatchProps) => {
     return () => {
       clearInterval(increment);
     };
-  }, [isPaused]);
+  }, [index, isPaused, setTimerArr, timerArr]);
+
   const handlePause = () => {
     setIsPaused((prev) => !prev);
   };
+
   const removeItem = (code: string) => {
     setClickedItems(clickedItems.filter((it) => it.code !== code));
+
+    let newTimerArr = timerArr;
+    newTimerArr.splice(index, 1);
+    setTimerArr(newTimerArr);
   };
-  console.log(timer, 'timer');
+
+  const formatTime = () => {
+    const seconds = `0${timerArr[index] % 60}`.slice(-2);
+    const minutes = `0${Math.floor(timerArr[index] / 60) % 60}`.slice(-2);
+    const hours = `0${Math.floor(timerArr[index] / 3600)}`.slice(-2);
+    return `${hours} : ${minutes} : ${seconds}`;
+  };
+
+  const handleRecord = () => {
+    console.log('make array for record');
+  };
+
   return (
-    <Container>
+    <Container transition={{ type: 'lenear' }}>
       <div>
         <img width={36} src={list.img} alt={list.name} />
         <h3>{list.name}</h3>
       </div>
-      <Timer timer={timer} />
+      <span>{formatTime()}</span>
       <div>
         {isPaused ? (
           <BtnIcon
@@ -90,9 +119,14 @@ const StopWatch = ({ list, clickedItems, setClickedItems }: StopWatchProps) => {
             src={pause}
           />
         )}
-        <BtnIcon variants={IconVar} whileHover="hover" src={stop} />
+        <button
+          onClick={handleRecord}
+          style={{ marginLeft: '25px', background: 'transparent' }}
+          disabled={time === 0}
+        >
+          <BtnIcon variants={IconVar} whileHover="hover" src={stop} />
+        </button>
       </div>
-      {/* <OperationButtons /> */}
       <BtnIcon
         onClick={() => removeItem(list.code)}
         variants={IconVar}

@@ -1,12 +1,15 @@
-import { atom } from 'recoil';
-import Category from 'utils/Category';
-
-// export const listState = atom<Category[]>({
-//   key: 'listState',
-//   default: [],
+import { atom, selector } from 'recoil';
+// export const pauseState = atom({
+//   key: 'pause',
+//   default: false,
 // });
 
-export const pauseState = atom({
-  key: 'pause',
-  default: false,
-});
+// export const timerState = atom({
+//   key: 'timerState',
+//   default: 0,
+// });
+
+// export const timerSelector = selector({
+//   key: 'timerSelector',
+
+// });

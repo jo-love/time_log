@@ -49,15 +49,18 @@ const ItemVar = {
 
 const Record = () => {
   const [clickedItems, setClickedItems] = useState<Category[]>([]);
+  const [timerArr, setTimerArr] = useState<number[]>([]);
 
   const addList = useCallback(
     (i: number) => {
       if (!clickedItems.includes(Category.allCases[i]))
         setClickedItems([...clickedItems, Category.allCases[i]]);
+      const temp = timerArr;
+      temp.push(0);
+      setTimerArr(temp);
     },
-    [clickedItems],
+    [clickedItems, timerArr],
   );
-
   return (
     <Wrapper>
       <SelectBox>
@@ -77,9 +80,12 @@ const Record = () => {
       {clickedItems.map((list, i) => (
         <StopWatch
           key={i}
+          index={i}
           list={list}
           clickedItems={clickedItems}
           setClickedItems={setClickedItems}
+          timerArr={timerArr}
+          setTimerArr={setTimerArr}
         />
       ))}
     </Wrapper>
