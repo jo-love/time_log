@@ -2,6 +2,7 @@ import { motion, useAnimation, useViewportScroll } from 'framer-motion';
 import styled from 'styled-components';
 import { useEffect } from 'react';
 import { Link, useMatch } from 'react-router-dom';
+import { signOut } from 'utils/FirebaseAuth';
 
 const Nav = styled(motion.nav)`
   position: fixed;
@@ -84,7 +85,7 @@ const Header = () => {
             </Link>
           </li>
         </ul>
-        <Logout>로그아웃</Logout>
+        <Logout onClick={signOut}>로그아웃</Logout>
       </Nav>
     </>
   );

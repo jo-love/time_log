@@ -2,9 +2,9 @@ import styled from 'styled-components';
 import { motion } from 'framer-motion';
 import { useEffect, useState } from 'react';
 
-import Category from 'utils/Category';
 import { formatTime } from 'utils/Timer';
 import { pause, play, stop, close } from 'assets';
+import { StopWatchProps } from './Types';
 
 const Container = styled(motion.div)`
   ${(props) => props.theme.positions.spaceAround};
@@ -36,14 +36,6 @@ const IconVar = {
     },
   },
 };
-interface StopWatchProps {
-  clickedItems: Category[];
-  setClickedItems: Function;
-  list: Category;
-  index: number;
-  timerArr: number[];
-  setTimerArr: Function;
-}
 
 const StopWatch = ({
   list,

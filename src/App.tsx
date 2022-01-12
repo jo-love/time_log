@@ -1,12 +1,12 @@
 import { Suspense, lazy } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom'; //버전 6로 업그레이드 후, Switch->routes,component->element
+import PrivateRoute from 'routes/PrivateRoute';
 import { loading } from 'assets/index';
-import NotFound from 'pages/NotFound';
-import Record from 'pages/Record';
-import History from 'pages/History';
-import Header from 'components/Header';
 
 const Login = lazy(() => import('pages/Login'));
+const Record = lazy(() => import('pages/Record'));
+const History = lazy(() => import('pages/History'));
+const NotFound = lazy(() => import('pages/NotFound'));
 
 function App() {
   return (
@@ -18,12 +18,24 @@ function App() {
       }
     >
       <BrowserRouter>
-        <Header />
-        {/* header 불필요한 곳 수정필요 */}
         <Routes>
           <Route path="/" element={<Login />} />
-          <Route path="/record" element={<Record />} />
-          <Route path="history" element={<History />} />
+          <Route
+            path="/record"
+            element={
+              <PrivateRoute>
+                <Record />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/history"
+            element={
+              <PrivateRoute>
+                <History />
+              </PrivateRoute>
+            }
+          />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>

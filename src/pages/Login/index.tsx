@@ -1,5 +1,7 @@
 import styled from 'styled-components';
-import { clockClip, google_logo } from 'assets';
+
+import GoogleButton from './GoogleButton';
+import { clockClip } from 'assets';
 
 const Container = styled.video`
   object-fit: cover;
@@ -22,30 +24,11 @@ const LoginSection = styled.section`
     color: darkmagenta;
   }
 `;
-
 const Title = styled.div`
   font-size: 28px;
   text-align: center;
   height: 250px;
   transform: translateY(50%);
-`;
-const Button = styled.button`
-  ${(props) => props.theme.positions.flexCenterY};
-  margin: 0 auto;
-  width: 330px;
-  height: 50px;
-  background-color: ${(props) => props.theme.colors.white};
-  border-radius: 5px;
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
-  img {
-    margin-left: 15px;
-  }
-  span {
-    transform: translateX(70px);
-    letter-spacing: 3px;
-    font-weight: 600;
-    color: black;
-  }
 `;
 const Login = () => {
   return (
@@ -56,10 +39,7 @@ const Login = () => {
       <LoginSection>
         <h2>Time Log</h2>
         <Title>LOGIN</Title>
-        <Button>
-          <img width={30} src={google_logo} alt="google" />
-          <span>구글 로그인</span>
-        </Button>
+        <GoogleButton />
       </LoginSection>
     </>
   );
