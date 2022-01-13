@@ -53,8 +53,13 @@ const Record = () => {
 
   const addList = useCallback(
     (i: number) => {
-      if (!clickedItems.includes(Category.allCases[i]))
-        setClickedItems([...clickedItems, Category.allCases[i]]);
+      if (!clickedItems.includes(Category.allCases[i])) {
+        let CategoryObj = Category.allCases[i];
+        const now = new Date().toLocaleString();
+        CategoryObj['startTime'] = now;
+        setClickedItems([...clickedItems, CategoryObj]);
+      }
+
       const temp = timerArr;
       temp.push(0);
       setTimerArr(temp);

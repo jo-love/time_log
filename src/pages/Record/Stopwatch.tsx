@@ -78,7 +78,10 @@ const StopWatch = ({
   };
 
   const handleRecord = () => {
-    console.log('make array for record');
+    const time = new Date().toLocaleString();
+    console.log(time, 'endTime');
+    // db로 보내는 곳
+    // {code:"work", timer:03:00:01, startTime:2022. 1. 13. 오후 2:45:10, endTime:2022. 1. 13. 오후 2:45:23}
   };
 
   return (
