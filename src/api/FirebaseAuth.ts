@@ -18,9 +18,9 @@ export const auth = firebase.auth();
 // 팝업을 통해 로그인 수행하며 로그인이 완료되면 promise 객체에 결과를 리턴
 export const signInGoogle = () => {
   const provider = new firebase.auth.GoogleAuthProvider();
-  return auth.signInWithPopup(provider);
+    return auth.signInWithPopup(provider);
 };
 
-export const signOut = () => {
+export const googleSignOut = () => {
   return auth.signOut();
 };

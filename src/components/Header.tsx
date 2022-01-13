@@ -2,7 +2,9 @@ import { motion, useAnimation, useViewportScroll } from 'framer-motion';
 import styled from 'styled-components';
 import { useEffect } from 'react';
 import { Link, useMatch } from 'react-router-dom';
-import { signOut } from 'utils/FirebaseAuth';
+import { googleSignOut } from 'api/FirebaseAuth';
+import { useSetRecoilState } from 'recoil';
+import { tokenState } from 'recoil/atoms';
 
 const Nav = styled(motion.nav)`
   position: fixed;
@@ -53,6 +55,8 @@ const navVar = {
   },
 };
 const Header = () => {
+  const logout = useSetRecoilState(tokenState);
+
   const recordMatch = useMatch('/record');
   const historyMatch = useMatch('/history');
   const { scrollY } = useViewportScroll();
@@ -67,6 +71,10 @@ const Header = () => {
       }
     });
   });
+  const signOut = () => {
+    logout(null);
+    googleSignOut();
+  };
   return (
     <>
       <Nav variants={navVar} initial="initial" animate={navAnimation}>

@@ -1,12 +1,12 @@
+import { useRecoilState } from 'recoil';
 import styled from 'styled-components';
+import { useNavigate } from 'react-router';
+import { useEffect } from 'react';
 
-import { signInGoogle } from 'utils/FirebaseAuth';
+import { auth, signInGoogle } from 'api/FirebaseAuth';
+import { defaultHeaders } from 'utils/clientConfig';
+import { tokenState, userState } from 'recoil/atoms';
 import { google_logo } from 'assets';
-
-// const clientId = process.env.REACT_APP_GOOGLE_CLIENT_ID;
-// if (!clientId) {
-//   throw new Error('Google token is not set');
-// }
 
 const Button = styled.button`
   ${(props) => props.theme.positions.flexCenterY};
@@ -26,7 +26,37 @@ const Button = styled.button`
     color: black;
   }
 `;
+
 const GoogleButton = () => {
+  // const [user, setUser] = useRecoilState(userState);
+  const [token, setToken] = useRecoilState(tokenState);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    // observer for changes to the user's sign-in state
+    auth.onAuthStateChanged(async (firebaseUser) => {
+      console.log(firebaseUser, 'user');
+      if (firebaseUser) {
+        const getToken = await firebaseUser.getIdToken();
+        setToken(getToken);
+        navigate('/record');
+        // defaultHeaders.Authorization = `Bearer${token}`;
+
+        // const res = await fetch('users/me', {
+        //   method: 'GET',
+        //   headers: defaultHeaders,
+        // });
+        // if (res.status === 200) {
+        //   const user = await res.json();
+        //   console.log(user);
+        //   setUser(user);
+        // } else {
+        //   delete defaultHeaders.Authorization;
+        //   setUser(null);
+        // }
+      }
+    });
+  });
   return (
     <Button onClick={signInGoogle}>
       <img width={30} src={google_logo} alt="google" />
