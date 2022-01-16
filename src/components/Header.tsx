@@ -2,7 +2,7 @@ import { motion, useAnimation, useViewportScroll } from 'framer-motion';
 import styled from 'styled-components';
 import { useEffect } from 'react';
 import { Link, useMatch } from 'react-router-dom';
-import { googleSignOut } from 'api/FirebaseAuth';
+import { googleSignOut } from 'api/Firebase';
 import { useSetRecoilState } from 'recoil';
 import { tokenState } from 'recoil/atoms';
 

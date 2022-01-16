@@ -48,23 +48,22 @@ const ItemVar = {
 };
 
 const Record = () => {
-  const [clickedItems, setClickedItems] = useState<Category[]>([]);
-  const [timerArr, setTimerArr] = useState<number[]>([]);
+  const [clickedItems, setClickedItems] = useState<number[]>([]);
 
   const addList = useCallback(
     (i: number) => {
-      if (!clickedItems.includes(Category.allCases[i])) {
-        let CategoryObj = Category.allCases[i];
-        const now = new Date().toLocaleString();
-        CategoryObj['startTime'] = now;
-        setClickedItems([...clickedItems, CategoryObj]);
-      }
-
-      const temp = timerArr;
-      temp.push(0);
-      setTimerArr(temp);
+      const targetIdx = Category.allCases.indexOf(Category.allCases[i]);
+      if (!clickedItems.includes(targetIdx))
+        setClickedItems([...clickedItems, i]);
     },
-    [clickedItems, timerArr],
+    [clickedItems],
+  );
+
+  const removeList = useCallback(
+    (seletedIdx: number) => {
+      setClickedItems(clickedItems.filter((it) => it !== seletedIdx));
+    },
+    [clickedItems],
   );
   return (
     <Wrapper>
@@ -82,16 +81,8 @@ const Record = () => {
           </Item>
         ))}
       </SelectBox>
-      {clickedItems.map((list, i) => (
-        <StopWatch
-          key={i}
-          index={i}
-          list={list}
-          clickedItems={clickedItems}
-          setClickedItems={setClickedItems}
-          timerArr={timerArr}
-          setTimerArr={setTimerArr}
-        />
+      {clickedItems.map((selectedIdx, i) => (
+        <StopWatch key={i} selectedIdx={selectedIdx} removeList={removeList} />
       ))}
     </Wrapper>
   );

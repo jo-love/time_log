@@ -2,19 +2,24 @@ export default class Enumerable {
   code: string;
   name: string;
   img?: string;
-  startTime?: string;
+  // startTime?: string;
+  // endTime?: string;
+  timer?: number;
 
   constructor(
     code: string,
     name: string,
     img?: string,
+    // startTime?: string,
+    // endTime?: string,
     timer?: number,
-    startTime?: string,
   ) {
     this.code = code;
     this.name = name;
     this.img = img;
-    this.startTime = startTime;
+    // this.startTime = startTime;
+    // this.endTime = endTime;
+    this.timer = timer;
   }
 
   public getName?() {

@@ -10,14 +10,14 @@ const NotFound = lazy(() => import('pages/NotFound'));
 
 function App() {
   return (
-    <Suspense
-      fallback={
-        <div style={{ textAlign: 'center', marginTop: '30px' }}>
-          <img width={130} src={loading} alt="loading" />
-        </div>
-      }
-    >
-      <BrowserRouter>
+    <BrowserRouter>
+      <Suspense
+        fallback={
+          <div style={{ textAlign: 'center', marginTop: '30px' }}>
+            <img width={130} src={loading} alt="loading" />
+          </div>
+        }
+      >
         <Routes>
           <Route path="/" element={<Login />} />
           <Route
@@ -38,8 +38,8 @@ function App() {
           />
           <Route path="*" element={<NotFound />} />
         </Routes>
-      </BrowserRouter>
-    </Suspense>
+      </Suspense>
+    </BrowserRouter>
   );
 }
 

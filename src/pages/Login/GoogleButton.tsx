@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { useNavigate } from 'react-router';
 import { useEffect } from 'react';
 
-import { auth, signInGoogle } from 'api/FirebaseAuth';
+import { auth, signInGoogle } from 'api/Firebase';
 import { defaultHeaders } from 'utils/clientConfig';
 import { tokenState, userState } from 'recoil/atoms';
 import { google_logo } from 'assets';
