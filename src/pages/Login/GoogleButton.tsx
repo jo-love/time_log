@@ -1,11 +1,10 @@
-import { useRecoilState } from 'recoil';
+import { useRecoilState, useSetRecoilState } from 'recoil';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router';
 import { useEffect } from 'react';
 
 import { auth, signInGoogle } from 'api/Firebase';
-import { defaultHeaders } from 'utils/clientConfig';
-import { tokenState, userState } from 'recoil/atoms';
+import { tokenState, userEmailState } from 'recoil/atoms';
 import { google_logo } from 'assets';
 
 const Button = styled.button`
@@ -28,8 +27,8 @@ const Button = styled.button`
 `;
 
 const GoogleButton = () => {
-  // const [user, setUser] = useRecoilState(userState);
-  const [token, setToken] = useRecoilState(tokenState);
+  const setToken = useSetRecoilState(tokenState);
+  const setEmail = useSetRecoilState(userEmailState);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -37,23 +36,11 @@ const GoogleButton = () => {
     auth.onAuthStateChanged(async (firebaseUser) => {
       console.log(firebaseUser, 'user');
       if (firebaseUser) {
+        const getEmail = firebaseUser.email;
         const getToken = await firebaseUser.getIdToken();
         setToken(getToken);
+        setEmail(getEmail);
         navigate('/record');
-        // defaultHeaders.Authorization = `Bearer${token}`;
-
-        // const res = await fetch('users/me', {
-        //   method: 'GET',
-        //   headers: defaultHeaders,
-        // });
-        // if (res.status === 200) {
-        //   const user = await res.json();
-        //   console.log(user);
-        //   setUser(user);
-        // } else {
-        //   delete defaultHeaders.Authorization;
-        //   setUser(null);
-        // }
       }
     });
   });

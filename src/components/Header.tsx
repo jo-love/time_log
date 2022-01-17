@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { useEffect } from 'react';
 import { Link, useMatch } from 'react-router-dom';
 import { googleSignOut } from 'api/Firebase';
-import { useSetRecoilState } from 'recoil';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { tokenState } from 'recoil/atoms';
 
 const Nav = styled(motion.nav)`
@@ -55,8 +55,7 @@ const navVar = {
   },
 };
 const Header = () => {
-  const logout = useSetRecoilState(tokenState);
-
+  const setToken = useSetRecoilState(tokenState);
   const recordMatch = useMatch('/record');
   const historyMatch = useMatch('/history');
   const { scrollY } = useViewportScroll();
@@ -72,7 +71,7 @@ const Header = () => {
     });
   });
   const signOut = () => {
-    logout(null);
+    setToken(null);
     googleSignOut();
   };
   return (

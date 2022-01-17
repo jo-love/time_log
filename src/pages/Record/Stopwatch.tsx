@@ -1,3 +1,4 @@
+import { useRecoilValue } from 'recoil';
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
 import { useEffect, useState } from 'react';
@@ -5,8 +6,9 @@ import { useEffect, useState } from 'react';
 import Category from 'utils/Category';
 import { formatTime } from 'utils/Timer';
 import { StopWatchProps } from './Types';
-import { pause, play, stop, close } from 'assets';
 import { db } from 'api/Firebase';
+import { userEmailState } from 'recoil/atoms';
+import { pause, play, stop, close } from 'assets';
 
 const Container = styled(motion.div)`
   ${(props) => props.theme.positions.spaceAround};
@@ -40,14 +42,20 @@ const IconVar = {
 };
 
 const StopWatch = ({ selectedIdx, removeList }: StopWatchProps) => {
+  const userEmail = useRecoilValue(userEmailState);
   const list = Category.allCases[selectedIdx];
   const [timer, setTimer] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
-  const [startTime, setStartTime] = useState('');
+  const [date, setDate] = useState({});
+  const [startAt, setStartAt] = useState('');
 
   useEffect(() => {
-    const now = new Date().toLocaleString();
-    setStartTime(now);
+    const now = new Date();
+    const currentDate =
+      now.getFullYear() + '.' + (now.getMonth() + 1) + '.' + now.getDate();
+    const currentTime = now.getHours() + ':' + now.getMinutes();
+    setDate(currentDate);
+    setStartAt(currentTime);
   }, []);
 
   // 변수 list = 삭제 문제 X -> 타임 렌더 문제 O
@@ -75,17 +83,24 @@ const StopWatch = ({ selectedIdx, removeList }: StopWatchProps) => {
   };
 
   const handleRecord = () => {
-    const endTime = new Date().toLocaleString();
     handleRemove(selectedIdx);
+
+    const now = new Date();
+    const endAt = now.getHours() + ':' + now.getMinutes();
     const result = {
-      code: list.code,
+      name: list.name,
+      img: list.img,
       timer: timer,
-      startTime: startTime,
-      endTime: endTime,
+      date: date,
+      startAt: startAt,
+      endAt: endAt,
+      identifier: userEmail,
     };
+    console.log(result);
+
     db.collection('logInfo').add(result);
   };
-
+  // console.log(userEmail, 'e');
   return (
     <Container>
       <div>
