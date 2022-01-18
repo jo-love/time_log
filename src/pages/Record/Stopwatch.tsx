@@ -4,7 +4,7 @@ import { motion } from 'framer-motion';
 import { useEffect, useState } from 'react';
 
 import Category from 'utils/Category';
-import { formatTime } from 'utils/Timer';
+import { formatTime } from 'utils/TimeFormatter';
 import { StopWatchProps } from './Types';
 import { db } from 'api/Firebase';
 import { userEmailState } from 'recoil/atoms';
@@ -96,11 +96,8 @@ const StopWatch = ({ selectedIdx, removeList }: StopWatchProps) => {
       endAt: endAt,
       identifier: userEmail,
     };
-    console.log(result);
-
     db.collection('logInfo').add(result);
   };
-  // console.log(userEmail, 'e');
   return (
     <Container>
       <div>
@@ -127,7 +124,7 @@ const StopWatch = ({ selectedIdx, removeList }: StopWatchProps) => {
         <button
           onClick={handleRecord}
           style={{ marginLeft: '25px', background: 'transparent' }}
-          disabled={timer === 0}
+          disabled={timer < 60}
         >
           <BtnIcon variants={IconVar} whileHover="hover" src={stop} />
         </button>

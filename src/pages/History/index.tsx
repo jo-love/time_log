@@ -11,11 +11,13 @@ import { processData } from 'utils/ProcessingData';
 const Main = styled.main`
   display: grid;
   grid-template-columns: repeat(3, 1fr);
+  gap: 30px 0;
+  padding: 80px 60px;
 `;
 
 const History = () => {
-  const [processingData, setProcessingData] = useState<IProcessingData[]>([]);
   const userEmail = useRecoilValue(userEmailState);
+  const [processingData, setProcessingData] = useState<IProcessingData[]>([]);
 
   const getMyHistory = useCallback(async () => {
     const firestoreData = await db
@@ -32,7 +34,6 @@ const History = () => {
   useEffect(() => {
     getMyHistory();
   }, [getMyHistory]);
-
   return (
     <Main>
       {processingData.map((record, i) => (
