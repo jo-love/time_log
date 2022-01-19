@@ -1,23 +1,24 @@
-import { IResultData, IProcessingData } from 'pages/History/Types';
+import {
+  IResultData,
+  IProcessingData,
+  IDataForTotal,
+} from 'pages/History/Types';
 
-export const processData = (originData: IResultData[]) => {
+export const processData = (rawData: IResultData[]) => {
   let processingData: IProcessingData[] = [];
-  let uniqueDate: string[] = [];
+  const uniqueDate: string[] = [];
 
-  // 날짜만 져오기
-  const getDateValue = originData.map((el) => {
-    return el.date;
-  });
-
+  // 날짜 가져오기
+  const getDate = rawData.map((el) => el.date);
   // 유니크 날짜와 infodata 객체 만들어 주기
-  const combination = Array.from(new Set(getDateValue)).map((date) => {
+  const combination = Array.from(new Set(getDate)).map((date) => {
     uniqueDate.push(date || '');
     return { date: date, infoByDate: [] };
   });
   // 객체 틀 배열에 넣어주기
   processingData = [...combination] as IProcessingData[];
 
-  originData.map((item) => {
+  rawData.map((item) => {
     const targetIdx = uniqueDate.indexOf(item.date || '');
     delete item['date'];
     return processingData[targetIdx].infoByDate.push(item);
@@ -25,19 +26,20 @@ export const processData = (originData: IResultData[]) => {
   return processingData;
 };
 
-export const makeData = (result: any) => {
-  let final: any = [];
-  const uniqueArr: any = [];
-  const getImg = result.map((el: any) => el.img);
-  const combi = Array.from(new Set(getImg)).map((img) => {
+export const processAnotherData = (rawData: IProcessingData) => {
+  let processingData: IDataForTotal[] = [];
+  const uniqueArr: string[] = [];
+
+  const getImg = rawData.infoByDate.map((el) => el.img);
+  const combination = Array.from(new Set(getImg)).map((img) => {
     uniqueArr.push(img);
     return { img: img, timer: [] };
   });
-  final = [...combi];
+  processingData = [...combination];
 
-  result.map((el: any) => {
+  rawData.infoByDate.map((el) => {
     const idx = uniqueArr.indexOf(el.img);
-    return final[idx].timer.push(el.timer);
+    return processingData[idx].timer.push(el.timer);
   });
-  return final;
+  return processingData;
 };

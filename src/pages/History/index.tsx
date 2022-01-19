@@ -11,7 +11,7 @@ import { processData } from 'utils/ProcessingData';
 const Main = styled.main`
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 30px 0;
+  gap: 25px 0;
   padding: 80px 60px;
 `;
 
@@ -30,7 +30,6 @@ const History = () => {
 
     setProcessingData(processData(originData));
   }, [userEmail]);
-
   useEffect(() => {
     getMyHistory();
   }, [getMyHistory]);

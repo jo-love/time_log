@@ -13,7 +13,11 @@ export interface IProcessingData {
   infoByDate: IResultData[];
 }
 
+export interface IDataForTotal {
+  img: string;
+  timer: number[];
+}
+
 export interface ResultCardProps {
   record: IProcessingData;
 }
-

@@ -1,9 +1,9 @@
 import styled from 'styled-components';
 
-import { ResultCardProps } from './Types';
+import { IDataForTotal, ResultCardProps } from './Types';
 import { formatTime } from 'utils/TimeFormatter';
+import { processAnotherData } from 'utils/ProcessingData';
 import { calendar } from 'assets';
-import { makeData } from 'utils/ProcessingData';
 
 const Card = styled.article`
   width: 270px;
@@ -13,12 +13,12 @@ const Card = styled.article`
     font-size: 14px;
   }
   ul {
-    border-bottom: solid #9000ffe1 2px;
+    border-bottom: solid darkmagenta 2px;
   }
 `;
 const DateBox = styled.div`
   ${(props) => props.theme.positions.flexCenterY};
-  background-color: ${(props) => props.theme.colors.primary};
+  background-color: rgb(172, 151, 216);
   height: 35px;
   img {
     margin-left: 20px;
@@ -38,16 +38,21 @@ const List = styled.li`
   }
 `;
 const Total = styled.div`
-  ${(props) => props.theme.positions.flexCenterY};
-  height: 45px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 5px;
+  padding-top: 5px;
   div {
     ${(props) => props.theme.positions.flexCenterY};
     margin-left: 5px;
   }
 `;
 const ResultCard = ({ record }: ResultCardProps) => {
-  const total = makeData(record.infoByDate);
+  const total = processAnotherData(record);
 
+  const sumTime = (el: IDataForTotal) => {
+    return formatTime(el.timer.reduce((prev, cur) => prev + cur, 0));
+  };
   return (
     <Card>
       <DateBox>
@@ -70,11 +75,11 @@ const ResultCard = ({ record }: ResultCardProps) => {
         ))}
       </ul>
       <Total>
-        {total.map((el: any, i: number) => (
+        {total.map((el, i) => (
           <div key={i}>
             <img width={25} src={el.img} alt="img" />
-            <span>
-              :{el.timer.reduce((prev: any, cur: any) => prev + cur, 0)}
+            <span style={{ fontWeight: 'bold', marginLeft: '5px' }}>
+              {sumTime(el)}
             </span>
           </div>
         ))}

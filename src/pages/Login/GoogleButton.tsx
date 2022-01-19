@@ -1,4 +1,4 @@
-import { useRecoilState, useSetRecoilState } from 'recoil';
+import { useSetRecoilState } from 'recoil';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router';
 import { useEffect } from 'react';
@@ -34,7 +34,6 @@ const GoogleButton = () => {
   useEffect(() => {
     // observer for changes to the user's sign-in state
     auth.onAuthStateChanged(async (firebaseUser) => {
-      console.log(firebaseUser, 'user');
       if (firebaseUser) {
         const getEmail = firebaseUser.email;
         const getToken = await firebaseUser.getIdToken();
