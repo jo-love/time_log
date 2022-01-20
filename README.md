@@ -22,7 +22,9 @@
 
 ### 기술스텍
 
-react + typescript + styled-component &nbsp;
-recoil를 이용하여 전역 상태 관리 &nbsp;
-framer motion을 통한 애니메이션 구현 &nbsp;
+react + typescript + styled-component <br/>
+recoil를 이용하여 전역 상태 관리 <br/>
+framer motion을 통한 애니메이션 구현 <br/>
 DB: firebase를 이용하여 get, post 기능 구현
+
+![스크린샷 2022-01-20 오후 10 11 52](https://user-images.githubusercontent.com/68534900/150345831-cb8cb1e0-25d4-4a13-a05a-7ecaf6b88436.png)
