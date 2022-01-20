@@ -12,7 +12,16 @@ const Main = styled.main`
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 25px 0;
-  padding: 80px 60px;
+  width: 80%;
+  margin: 0 auto;
+  padding: 90px 0px;
+
+  @media ${(props) => props.theme.size.laptop} {
+    width: 95%;
+  }
+  @media ${(props) => props.theme.size.mobile} {
+    grid-template-columns: repeat(2, 1fr);
+  }
 `;
 
 const History = () => {
@@ -30,9 +39,11 @@ const History = () => {
 
     setProcessingData(processData(originData));
   }, [userEmail]);
+
   useEffect(() => {
     getMyHistory();
   }, [getMyHistory]);
+
   return (
     <Main>
       {processingData.map((record, i) => (

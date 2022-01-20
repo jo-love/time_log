@@ -17,15 +17,17 @@ const Card = styled.article`
   }
 `;
 const DateBox = styled.div`
-  ${(props) => props.theme.positions.flexCenterY};
+  ${(props) => props.theme.positions.spaceBetween};
   background-color: rgb(172, 151, 216);
+  padding: 0 20px;
   height: 35px;
-  img {
-    margin-left: 20px;
-  }
-  span {
-    margin-left: 10px;
-    color: ${(props) => props.theme.colors.white};
+  div {
+    margin-top: 5px;
+
+    span {
+      margin-left: 10px;
+      color: ${(props) => props.theme.colors.white};
+    }
   }
 `;
 const List = styled.li`
@@ -49,15 +51,16 @@ const Total = styled.div`
 `;
 const ResultCard = ({ record }: ResultCardProps) => {
   const total = processAnotherData(record);
-
   const sumTime = (el: IDataForTotal) => {
     return formatTime(el.timer.reduce((prev, cur) => prev + cur, 0));
   };
   return (
     <Card>
       <DateBox>
-        <img width={20} src={calendar} alt="calendar" />
-        <span>{record.date}</span>
+        <div>
+          <img width={20} src={calendar} alt="calendar" />
+          <span>{record.date}</span>
+        </div>
       </DateBox>
       <ul>
         {record.infoByDate.map((info, i) => (

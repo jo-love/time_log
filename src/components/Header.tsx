@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { useEffect } from 'react';
 import { Link, useMatch } from 'react-router-dom';
 import { googleSignOut } from 'api/Firebase';
-import { useRecoilValue, useSetRecoilState } from 'recoil';
+import { useSetRecoilState } from 'recoil';
 import { tokenState } from 'recoil/atoms';
 
 const Nav = styled(motion.nav)`
@@ -82,13 +82,13 @@ const Header = () => {
           <li>
             <Link to="/record">
               기록하기
-              {recordMatch && <Mark layoutId="circle" />}
+              {recordMatch && <Mark layoutId="line" />}
             </Link>
           </li>
           <li>
             <Link to="/history">
               히스토리
-              {historyMatch && <Mark layoutId="circle" />}
+              {historyMatch && <Mark layoutId="line" />}
             </Link>
           </li>
         </ul>

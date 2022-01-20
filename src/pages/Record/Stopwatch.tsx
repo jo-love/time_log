@@ -3,7 +3,6 @@ import styled from 'styled-components';
 import { motion } from 'framer-motion';
 import { useEffect, useState } from 'react';
 
-import TransitionAlerts from 'components/TransitionAlerts';
 import Category from 'utils/Category';
 import { formatTime } from 'utils/TimeFormatter';
 import { StopWatchProps } from './Types';
@@ -45,7 +44,6 @@ const IconVar = {
 const StopWatch = ({ selectedIdx, removeList }: StopWatchProps) => {
   const userEmail = useRecoilValue(userEmailState);
   const list = Category.allCases[selectedIdx];
-  const [open, setOpen] = useState(false);
   const [timer, setTimer] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
   const [date, setDate] = useState({});
@@ -126,7 +124,7 @@ const StopWatch = ({ selectedIdx, removeList }: StopWatchProps) => {
         <button
           onClick={handleRecord}
           style={{ marginLeft: '25px', background: 'transparent' }}
-          disabled={timer < 60}
+          disabled={timer === 0}
         >
           <BtnIcon variants={IconVar} whileHover="hover" src={stop} />
         </button>
@@ -137,7 +135,6 @@ const StopWatch = ({ selectedIdx, removeList }: StopWatchProps) => {
         whileHover="hover"
         src={close}
       />
-      {open && <TransitionAlerts />}
     </Container>
   );
 };
