@@ -10,7 +10,7 @@ const NotFound = lazy(() => import('pages/NotFound'));
 
 function App() {
   return (
-    <BrowserRouter basename={process.env.PUBLIC_URL}>
+    <BrowserRouter>
       <Suspense
         fallback={
           <div style={{ textAlign: 'center', marginTop: '30px' }}>
