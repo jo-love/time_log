@@ -45,6 +45,7 @@
       "react-app/jest"
     ]
   },
+  "homepage": "https://elastic-golick-b8094c.netlify.app",
   "browserslist": {
     "production": [
       ">0.2%",
