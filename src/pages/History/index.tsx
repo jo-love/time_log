@@ -32,14 +32,13 @@ const History = () => {
     const firestoreData = await db
       .collection('logInfo')
       .where('identifier', '==', userEmail)
+      .orderBy('date', 'asc')
       .get();
     const originData = firestoreData.docs.map(
       (doc) => doc.data() as IResultData,
     );
-
     setProcessingData(processData(originData));
   }, [userEmail]);
-
   useEffect(() => {
     getMyHistory();
   }, [getMyHistory]);

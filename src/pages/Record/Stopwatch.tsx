@@ -84,6 +84,7 @@ const StopWatch = ({ selectedIdx, removeList }: StopWatchProps) => {
 
   const handleRecord = () => {
     handleRemove(selectedIdx);
+    console.log(isPaused, 'boolean');
 
     const now = new Date();
     const endAt = now.getHours() + ':' + now.getMinutes();
@@ -140,3 +141,5 @@ const StopWatch = ({ selectedIdx, removeList }: StopWatchProps) => {
 };
 
 export default StopWatch;
+
+// !상위 idx가 멈춤을 한 상태에서 삭제하면, 아래 idx가 멈춤
